@@ -1,0 +1,25 @@
+# Stage C - campus garment detector fine-tuning.
+# Targets the "Student Dress Code" Roboflow export (13 classes), which maps to
+# the Clothic AI ontology via ontology/mappings/student_dresscode.yaml.
+# (The old 4-class ai-udin export was removed; replaced by this dataset.)
+
+path: ../../data/merged_garment   # built by tools/dataset_unifier.py (relative to this file)
+train: train/images
+val: valid/images                 # proper val split shipped by the export
+test: test/images
+
+# Classes exactly as exported by Roboflow (order matters for YOLO label ids).
+names:
+  0: cropped_top
+  1: dress
+  2: hat
+  3: id
+  4: longsleeved
+  5: mini-skirt
+  6: pants
+  7: ripped_jeans
+  8: shirt
+  9: shoe
+  10: shorts
+  11: skirt
+  12: sleeveless

@@ -1,0 +1,29 @@
+# Canonical garment-detector vocabulary (Model 2 output classes).
+# Every training source is remapped INTO these names by the dataset unifier, so
+# the detector always speaks one language regardless of which dataset an image
+# came from. Inference then translates these names -> slot/type/attributes via
+# DEFAULT_CLASS_MAP (perception/ultralytics_backend.py) + the *_to_canon mapping.
+#
+# Order is fixed (it becomes the YOLO class id). Matches the original Student
+# Dress Code export so existing label files map by identity.
+#
+# Design note: garment *length* (mini vs normal skirt) and *condition* (ripped,
+# cropped) are intentionally NOT separate detector classes here -- those are
+# decided downstream by Sapiens pixel-exposure (hemline/midriff) and FashionSigLIP
+# attributes. Keeping the detector to robust, well-populated TYPE classes is what
+# lifts accuracy. The three legacy fine-grained classes are kept for backward
+# compatibility but external datasets are not mapped onto them.
+classes:
+  0: cropped_top      # legacy/fine-grained (crop decided by midriff exposure)
+  1: dress
+  2: hat
+  3: id               # non-apparel; no external source maps here
+  4: longsleeved
+  5: mini-skirt       # legacy/fine-grained (length decided by pixel exposure)
+  6: pants
+  7: ripped_jeans     # legacy/fine-grained (rip decided by FashionSigLIP)
+  8: shirt
+  9: shoe
+  10: shorts
+  11: skirt
+  12: sleeveless

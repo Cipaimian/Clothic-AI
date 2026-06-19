@@ -1,0 +1,30 @@
+# Clothic AI canonical clothing ontology -- the single source of truth that all
+# datasets are mapped INTO (see ontology/mappings/). Perception emits these
+# names; policy rules reference them. Decoupling the vocabulary from any one
+# dataset is what makes merging heterogeneous fashion datasets tractable.
+
+garment_types:
+  upper:
+    [tshirt, polo, tank_top, sleeveless_top, crop_top, hoodie, jacket,
+     shirt_formal, blouse, dress, other]
+  lower:
+    [long_pants, shorts, skirt_long, skirt_short, trousers_formal, leggings, other]
+  footwear:
+    [shoes_closed, sneakers, sandals, flip_flops, formal_shoes, none_barefoot]
+
+# Multi-label, 0..1 each. A garment can carry several attributes at once.
+attributes:
+  sleeve:        [sleeveless, short_sleeve, long_sleeve]
+  length:        [hemline_above_knee, hemline_at_knee, hemline_below_knee]
+  condition:     [ripped_torn, transparent_sheer]
+  cut:           [midriff_exposed, tight_fit]
+  style:         [formal_style, graphic_print]
+
+# Derived geometrically from parsing + pose (NOT predicted directly).
+exposure_regions:
+  [shoulder, upper_arm, midriff, thigh, knee, calf]
+
+# Two attributes are advisory-only by policy: hard to detect reliably from a
+# single webcam frame, and inherently subjective. They flag for human review,
+# never auto-violate.
+advisory_attributes: [transparent_sheer]

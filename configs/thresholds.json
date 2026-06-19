@@ -1,0 +1,16 @@
+{
+  "attribute_decision_threshold": 0.6,
+  "evidence_quality_floor": 0.45,
+  "temporal": {
+    "ema_alpha": 0.4,
+    "debounce_k_of_m": [3, 5]
+  },
+  "scoring": {
+    "violation_saturation_k": 1.25,
+    "formality_baseline": 0.5
+  },
+  "calibration": {
+    "method": "temperature",
+    "per_head": true
+  }
+}

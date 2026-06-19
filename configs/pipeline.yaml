@@ -1,0 +1,54 @@
+# Clothic AI runtime pipeline configuration  --  single source of truth.
+#
+# This file decides WHICH perception backend runs and WHICH model weights it
+# loads. The API (clothic.api.app), the CLI, and the verify scripts all read it
+# through clothic.config.resolve_backend_config(), so changing a path here changes
+# every entry point at once -- no code edits, no retraining.
+#
+# Artifact paths are relative to the repo root and resolved automatically, so the
+# API works no matter which directory you launch uvicorn from.
+
+# Active backend. Override at launch with the CLOTHIC_BACKEND env var.
+#   mock        -- scripted personas, zero heavy deps. Demo/tests only; ignores
+#                  the uploaded image (does NOT actually look at the photo).
+#   ultralytics -- real detection, fast (~1-2 s/photo on CPU). Person + garment
+#                  YOLO; exposure inferred from garment attributes.
+#   full        -- the redesign centerpiece: person + pose + Sapiens body parsing
+#                  (PIXEL-MEASURED skin-vs-clothing exposure) + garment detector +
+#                  FashionSigLIP attributes. Most accurate; ~30 s/photo on CPU.
+backend: full
+
+backends:
+  # No kwargs: the mock backend invents personas on its own.
+  mock: {}
+
+  # Lightweight real path -- good default for the webcam / real-time scanning.
+  ultralytics:
+    person_weights: yolo11n.pt                 # COCO person detector (repo root)
+    garment_weights: runs/detect/runs_clothic/garment/stage_c-7/weights/best.pt
+    conf: 0.40                                  # detection confidence floor
+    device: cpu                                 # cpu | cuda:0 | null (auto)
+
+  # Full hybrid stack -- highest accuracy, pixel-measured exposure.
+  full:
+    person_weights: yolo11n.pt                  # person detect + ByteTrack
+    pose_weights: yolo11n-pose.pt               # knee/shoulder anchors for regions
+    # 13-class campus garment detector trained on the merged dataset
+    # (campus dress-code + Fashionpedia + DeepFashion2). mAP50 0.63 / mAP50-95 0.43.
+    garment_weights: runs/detect/runs_clothic/garment/stage_c-7/weights/best.pt
+    parser_type: sapiens                        # sapiens | segformer (fallback)
+    sapiens_checkpoint: models/sapiens/sapiens_0.3b_goliath.pt2   # Model 1: parsing
+    clip_model: "hf-hub:Marqo/marqo-fashionSigLIP"               # Model 2: attributes
+    conf: 0.35
+    device: cpu                                 # Sapiens 0.3B ~= 30 s/frame on CPU
+
+# Run the heavy semantic stack every Nth frame; temporal fusion fills the gaps.
+# This is the single biggest real-time win (clothing doesn't change per frame).
+cadence:
+  detect_every: 1
+  semantic_every: 5
+
+runtime:
+  default_profile: default       # campus_profiles/default.json (the rule set)
+  camera_id: cam0
+  zone: null                     # e.g. "lab" to activate zone-gated rules

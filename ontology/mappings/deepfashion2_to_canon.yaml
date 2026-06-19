@@ -1,0 +1,23 @@
+# DeepFashion2 (13 categories) -> Clothic AI canonical garment classes.
+# DeepFashion2 category ids are 1-based (see its train/annos/*.json "category_id").
+# This is the single biggest source for the under-represented violation classes:
+# vest+sling -> sleeveless, plus thousands of shorts / skirt / dress instances.
+#
+# Used by tools/dataset_unifier.py (kind: deepfashion2).
+source: deepfashion2
+# map by DeepFashion2 category_id -> canonical class name (must exist in
+# ontology/garment_classes.yaml). Unlisted ids are dropped.
+by_id:
+  1: shirt           # short_sleeve_top
+  2: longsleeved     # long_sleeve_top
+  3: shirt           # short_sleeve_outwear
+  4: longsleeved     # long_sleeve_outwear
+  5: sleeveless      # vest
+  6: sleeveless      # sling
+  7: shorts          # shorts
+  8: pants           # trousers
+  9: skirt           # skirt
+  10: dress          # short_sleeve_dress
+  11: dress          # long_sleeve_dress
+  12: dress          # vest_dress
+  13: dress          # sling_dress

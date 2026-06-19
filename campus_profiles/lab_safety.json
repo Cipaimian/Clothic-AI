@@ -1,0 +1,57 @@
+{
+  "profile_id": "lab_safety",
+  "version": "2026.06.01",
+  "display_name": "Laboratory / Workshop Safety Dress Code",
+  "language": "en",
+  "decision_bands": {
+    "compliant":       { "min_compliance": 0.85, "max_uncertainty": 0.30 },
+    "minor_violation": { "min_compliance": 0.50, "max_uncertainty": 0.30 },
+    "major_violation": { "max_compliance": 0.50, "max_uncertainty": 0.30 },
+    "insufficient_evidence": { "min_uncertainty": 0.30 }
+  },
+  "region_exposure_limits": {
+    "shoulder": 0.10,
+    "upper_arm": 0.20,
+    "midriff": 0.05,
+    "thigh": 0.05,
+    "knee": 0.20,
+    "calf": 0.50
+  },
+  "formality": {
+    "baseline": 0.5,
+    "formal_footwear": ["formal_shoes", "shoes_closed"],
+    "casual_footwear": ["sandals", "flip_flops"]
+  },
+  "rules": [
+    {
+      "id": "LAB_CLOSED_FOOTWEAR",
+      "description": "Closed footwear is mandatory in labs and workshops",
+      "category": "footwear",
+      "severity": 0.9,
+      "weight": 1.5,
+      "enabled_in_zones": ["lab", "workshop"],
+      "citation": "Lab Safety Policy §2.1",
+      "when": { "attr": "footwear.type", "op": "in", "value": ["sandals", "flip_flops", "none_barefoot"] }
+    },
+    {
+      "id": "LAB_NO_BARE_LEGS",
+      "description": "Legs must be covered in chemical / machinery zones",
+      "category": "lower_body",
+      "severity": 0.8,
+      "weight": 1.2,
+      "enabled_in_zones": ["lab", "workshop"],
+      "citation": "Lab Safety Policy §2.3",
+      "when": { "attr": "exposure.thigh", "op": ">", "value": 0.05 }
+    },
+    {
+      "id": "LAB_NO_BARE_ARMS",
+      "description": "Sleeveless tops are unsafe near equipment / chemicals",
+      "category": "upper_body",
+      "severity": 0.7,
+      "weight": 1.0,
+      "enabled_in_zones": ["lab", "workshop"],
+      "citation": "Lab Safety Policy §2.2",
+      "when": { "attr": "upper.sleeveless", "op": ">=", "value": 0.6 }
+    }
+  ]
+}

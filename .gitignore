@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Clothic AI data & artifacts (track with DVC, not git)
+data/
+*.pt
+*.pt2
+*.onnx
+*.engine
+runs/
+
+# Models auto-downloaded by ultralytics
+yolo*.pt
+
+# Trained / downloaded model checkpoints
+models/
+
+# Datasets (external + campus) - too large for git, manage via DVC
+deepfashion2/
+fashionpedia/
+dataset-dresscode/
+*.zip
+
+# Logs
+*.log
+
+# Editor / tooling
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

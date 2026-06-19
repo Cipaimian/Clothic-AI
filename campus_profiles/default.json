@@ -1,0 +1,102 @@
+{
+  "profile_id": "default",
+  "version": "2026.06.01",
+  "display_name": "Standard Campus Dress Code",
+  "language": "en",
+  "decision_bands": {
+    "compliant":       { "min_compliance": 0.80, "max_uncertainty": 0.30 },
+    "minor_violation": { "min_compliance": 0.50, "max_uncertainty": 0.30 },
+    "major_violation": { "max_compliance": 0.50, "max_uncertainty": 0.30 },
+    "insufficient_evidence": { "min_uncertainty": 0.30 }
+  },
+  "region_exposure_limits": {
+    "shoulder": 0.40,
+    "upper_arm": 0.60,
+    "midriff": 0.15,
+    "thigh": 0.20,
+    "knee": 0.50,
+    "calf": 1.00
+  },
+  "formality": {
+    "baseline": 0.5,
+    "formal_footwear": ["formal_shoes", "shoes_closed"],
+    "casual_footwear": ["sandals", "flip_flops"]
+  },
+  "rules": [
+    {
+      "id": "UPPER_SLEEVELESS",
+      "description": "Sleeveless / tank tops are not permitted",
+      "category": "upper_body",
+      "severity": 0.7,
+      "weight": 1.0,
+      "citation": "Student Handbook §4.2(a)",
+      "when": {
+        "any": [
+          { "attr": "upper.sleeveless", "op": ">=", "value": 0.6 },
+          { "attr": "upper.type", "op": "in", "value": ["tank_top", "sleeveless_top", "crop_top"] }
+        ]
+      }
+    },
+    {
+      "id": "LOWER_ABOVE_KNEE",
+      "description": "Shorts / hemline above the knee are not permitted",
+      "category": "lower_body",
+      "severity": 0.8,
+      "weight": 1.2,
+      "citation": "Student Handbook §4.2(c)",
+      "when": {
+        "any": [
+          { "attr": "exposure.thigh", "op": ">", "value": 0.20 },
+          { "attr": "lower.hemline_above_knee", "op": ">=", "value": 0.6 }
+        ]
+      }
+    },
+    {
+      "id": "MIDRIFF_CROP",
+      "description": "Crop tops exposing the midriff are not permitted",
+      "category": "upper_body",
+      "severity": 0.8,
+      "weight": 1.1,
+      "citation": "Student Handbook §4.2(b)",
+      "when": { "attr": "exposure.midriff", "op": ">", "value": 0.15 }
+    },
+    {
+      "id": "RIPPED_CLOTHING",
+      "description": "Visibly torn / ripped clothing is discouraged",
+      "category": "condition",
+      "severity": 0.4,
+      "weight": 0.6,
+      "citation": "Student Handbook §4.2(d)",
+      "when": {
+        "any": [
+          { "attr": "upper.ripped_torn", "op": ">", "value": 0.6 },
+          { "attr": "lower.ripped_torn", "op": ">", "value": 0.6 }
+        ]
+      }
+    },
+    {
+      "id": "FOOTWEAR_OPEN",
+      "description": "Open footwear (sandals / flip-flops) is not permitted",
+      "category": "footwear",
+      "severity": 0.5,
+      "weight": 0.8,
+      "citation": "Student Handbook §4.3",
+      "when": { "attr": "footwear.type", "op": "in", "value": ["sandals", "flip_flops"] }
+    },
+    {
+      "id": "SHEER_ADVISORY",
+      "description": "Possible sheer / transparent fabric, flag for human review only",
+      "category": "advisory",
+      "severity": 0.2,
+      "weight": 0.0,
+      "advisory_only": true,
+      "citation": "Discretionary review",
+      "when": {
+        "any": [
+          { "attr": "upper.transparent_sheer", "op": ">", "value": 0.7 },
+          { "attr": "lower.transparent_sheer", "op": ">", "value": 0.7 }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+# Maps the user's Roboflow campus dataset (Indonesian labels, 4 classes) into
+# the canonical Clothic AI ontology. Used by tools/dataset_unifier and the
+# ultralytics backend's class map.
+source: ai-udin/my-first-project-0wgji
+mappings:
+  kaos:            { slot: upper, type: tshirt,      attributes: { short_sleeve: 0.9 } }
+  singlet:         { slot: upper, type: tank_top,    attributes: { sleeveless: 0.95 } }
+  celana_panjang:  { slot: lower, type: long_pants,  attributes: { hemline_below_knee: 0.95 } }
+  celana_pendek:   { slot: lower, type: shorts,      attributes: { hemline_above_knee: 0.9 } }

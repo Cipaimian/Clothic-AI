@@ -1,0 +1,24 @@
+# Fashionpedia (COCO-format, 27 main apparel categories) -> Clothic AI canonical
+# garment classes. Mapped by category NAME (Fashionpedia category names are
+# stable strings in the COCO json "categories"). Unlisted categories are dropped
+# (bags, accessories, gloves, tights, etc. carry no dress-code TYPE signal here).
+#
+# Used by tools/dataset_unifier.py (kind: fashionpedia). Fashionpedia is also the
+# intended source for FashionSigLIP attribute grounding (ripped/sheer/crop) later.
+source: fashionpedia
+by_name:
+  "shirt, blouse": shirt
+  "top, t-shirt, sweatshirt": shirt
+  "sweater": longsleeved
+  "cardigan": longsleeved
+  "jacket": longsleeved
+  "vest": sleeveless
+  "pants": pants
+  "shorts": shorts
+  "skirt": skirt
+  "dress": dress
+  "jumpsuit": dress
+  "coat": longsleeved
+  "shoe": shoe
+  "hat": hat
+  "headband, head covering, hair accessory": hat

@@ -1,0 +1,59 @@
+{
+  "profile_id": "exam_formal",
+  "version": "2026.06.01",
+  "display_name": "Examination / Formal Event Dress Code",
+  "language": "en",
+  "decision_bands": {
+    "compliant":       { "min_compliance": 0.85, "max_uncertainty": 0.30 },
+    "minor_violation": { "min_compliance": 0.55, "max_uncertainty": 0.30 },
+    "major_violation": { "max_compliance": 0.55, "max_uncertainty": 0.30 },
+    "insufficient_evidence": { "min_uncertainty": 0.30 }
+  },
+  "region_exposure_limits": {
+    "shoulder": 0.30,
+    "upper_arm": 0.50,
+    "midriff": 0.10,
+    "thigh": 0.15,
+    "knee": 0.40,
+    "calf": 1.00
+  },
+  "formality": {
+    "baseline": 0.5,
+    "formal_footwear": ["formal_shoes", "shoes_closed"],
+    "casual_footwear": ["sandals", "flip_flops", "sneakers"]
+  },
+  "rules": [
+    {
+      "id": "EXAM_REQUIRE_FORMAL_UPPER",
+      "description": "A collared / formal top is required for examinations",
+      "category": "upper_body",
+      "severity": 0.6,
+      "weight": 1.0,
+      "citation": "Examination Dress Code §1.1",
+      "when": {
+        "all": [
+          { "attr": "upper.formal_style", "op": "<", "value": 0.4 },
+          { "attr": "upper.type", "op": "not_in", "value": ["shirt_formal", "polo", "blouse"] }
+        ]
+      }
+    },
+    {
+      "id": "EXAM_NO_OPEN_FOOTWEAR",
+      "description": "Open or casual footwear is not permitted at examinations",
+      "category": "footwear",
+      "severity": 0.6,
+      "weight": 0.9,
+      "citation": "Examination Dress Code §1.3",
+      "when": { "attr": "footwear.type", "op": "in", "value": ["sandals", "flip_flops"] }
+    },
+    {
+      "id": "EXAM_SLEEVELESS",
+      "description": "Sleeveless attire is not permitted at examinations",
+      "category": "upper_body",
+      "severity": 0.7,
+      "weight": 1.0,
+      "citation": "Examination Dress Code §1.2",
+      "when": { "attr": "upper.sleeveless", "op": ">=", "value": 0.6 }
+    }
+  ]
+}

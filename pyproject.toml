@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clothic"
+version = "0.1.0"
+description = "Clothic AI - Clothing Vision: explainable, real-time campus outfit compliance via visual attribute recognition + a transparent policy reasoning engine."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Anak Agung Ngurah Bagus Rama Putra Suteja" },
+    { name = "Bintang Nathaniel Satria Putra" },
+    { name = "Brian Filbert Chandra" },
+    { name = "Muhammad Rafi Bagaskara" },
+    { name = "Sholahuddin Muhammad Athar" },
+]
+dependencies = [
+    "numpy>=1.24",
+    "pydantic>=2.5",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+# Core reasoning + API run with just the base deps + these.
+api = ["fastapi>=0.110", "uvicorn>=0.27", "python-multipart>=0.0.9"]
+# Camera / image demos.
+vision = ["opencv-python>=4.8", "Pillow>=10.0"]
+# Real perception: detection + tracking + pose. Mock backend needs none of this.
+perception = ["ultralytics>=8.3", "torch>=2.2"]
+# Model 1 (Sapiens body parsing) + attribute model (FashionSigLIP).
+parsing = ["torch>=2.2", "open_clip_torch>=2.24", "transformers>=4.40", "Pillow>=10.0"]
+dev = ["pytest>=8.0", "ruff>=0.4", "mypy>=1.8"]
+
+[project.scripts]
+clothic = "clothic.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

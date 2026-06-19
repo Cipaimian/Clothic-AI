@@ -1,0 +1,31 @@
+# Which model artifact fills each pipeline role. Records provenance so every
+# decision can be traced to the exact weights that produced it.
+models:
+  person_detector:
+    id: yolo11n@coco
+    role: detect
+    artifact: yolo11n.pt
+    notes: "Default. Upgrade to RT-DETR-R50 for crowded scenes."
+  tracker:
+    id: bytetrack
+    role: track
+    artifact: bytetrack.yaml
+  pose:
+    id: yolo11n-pose           # knee/shoulder anchors for region windows
+    role: pose
+    artifact: yolo11n-pose.pt
+    notes: "Active in the full backend. RTMPose is the documented upgrade."
+  parser:
+    id: sapiens-0.3b-goliath   # Model 1: body parsing (bare-skin vs clothing)
+    role: parsing
+    artifact: models/sapiens/sapiens_0.3b_goliath.pt2   # Sapiens TorchScript (.pt2)
+    notes: "Goliath 28-class. exposure = skin/(skin+clothing) per region. Fallback: segformer-b2 clothes."
+  garment:
+    id: campus-merged-13class  # Model 2: which garments + coverage check
+    role: garment
+    artifact: runs/detect/runs_clothic/garment/stage_c-7/weights/best.pt
+    notes: "13-class, trained on campus dress-code + Fashionpedia + DeepFashion2. mAP50 0.63."
+  attributes:
+    id: marqo-fashionSigLIP    # SigLIP-2 fashion fine-tune (multi-label attrs)
+    role: attributes
+    artifact: "hf-hub:Marqo/marqo-fashionSigLIP"

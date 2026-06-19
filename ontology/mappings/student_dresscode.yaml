@@ -1,0 +1,31 @@
+# Maps the "Student Dress Code - Detection" Roboflow dataset (v3, 13 classes)
+# into the canonical Clothic AI ontology. Used by tools/dataset_unifier and the
+# backends' class map. Source: detection-training-space/student-dress-code-detection
+#
+# slot   = which body bucket the garment occupies (upper | lower | footwear | headwear)
+# type   = canonical garment type (free text; a few values are matched by rules)
+# attributes = signals the JSON rule engine consumes (see campus_profiles/*.json)
+source: detection-training-space/student-dress-code-detection
+mappings:
+  # --- upper body ---
+  sleeveless:   { slot: upper, type: sleeveless_top, attributes: { sleeveless: 0.95 } }
+  longsleeved:  { slot: upper, type: shirt_long,     attributes: { long_sleeve: 0.9 } }
+  shirt:        { slot: upper, type: shirt,          attributes: { short_sleeve: 0.7 } }
+  cropped_top:  { slot: upper, type: crop_top,       attributes: { crop: 0.9, sleeveless: 0.5 } }
+
+  # --- lower body / full-length ---
+  pants:        { slot: lower, type: long_pants,     attributes: { hemline_below_knee: 0.95 } }
+  ripped_jeans: { slot: lower, type: long_pants,     attributes: { ripped_torn: 0.95, hemline_below_knee: 0.9 } }
+  shorts:       { slot: lower, type: shorts,         attributes: { hemline_above_knee: 0.9 } }
+  mini-skirt:   { slot: lower, type: skirt_short,    attributes: { hemline_above_knee: 0.95 } }
+  # Generic skirt/dress: length is ambiguous, so DON'T assert a hemline attribute.
+  # Pixel-measured exposure (Sapiens) decides thigh/knee coverage instead.
+  skirt:        { slot: lower, type: skirt,          attributes: {} }
+  dress:        { slot: lower, type: dress,          attributes: {} }
+
+  # --- footwear / headwear ---
+  shoe:         { slot: footwear, type: shoes_closed, attributes: {} }
+  hat:          { slot: headwear, type: hat,          attributes: {} }
+
+  # 'id' (ID card / lanyard) is intentionally UNMAPPED -- it is not apparel and
+  # carries no dress-code signal; dataset_unifier will report it as unmapped.

@@ -1,0 +1,40 @@
+# Declares every dataset that feeds the canonical garment detector and how each
+# maps into ontology/garment_classes.yaml. Build the merged, class-balanced YOLO
+# dataset with:
+#
+#     python tools/dataset_unifier.py --config configs/dataset_sources.yaml
+#
+# Each source is normalised to YOLO labels under <output>/{train,valid,test}.
+# `enabled: false` sources are skipped until you download them (see docs/DATASETS.md).
+
+canonical: ontology/garment_classes.yaml
+output: data/merged_garment
+
+balance:
+  # Cap kept instances PER canonical class to curb the dominant classes
+  # (shoe/longsleeved) so the rare violation classes are not drowned out.
+  # null = keep everything. Oversampling of rare classes is left to YOLO aug.
+  cap_per_class: 600        # ~3k imgs -> fits a 6-9h CPU run (yolo11n@416)
+  val_fraction: 0.12        # carved from train when a source has no val split
+  seed: 0
+
+sources:
+  - name: student_dresscode
+    kind: yolo
+    enabled: true
+    path: dataset-dresscode
+    identity: true          # labels already use canonical names -> copy as-is
+
+  - name: deepfashion2
+    kind: deepfashion2
+    enabled: true           # validation split extracted (32K imgs) for vest/sling->sleeveless
+    path: deepfashion2       # expects train/{image,annos} and validation/{image,annos}
+    mapping: ontology/mappings/deepfashion2_to_canon.yaml
+    to_split: train         # extra training data; eval stays on campus dress-code
+
+  - name: fashionpedia
+    kind: fashionpedia
+    enabled: true           # val split downloaded (1158 imgs); add train2020 for more
+    path: fashionpedia       # expects images/ + instances_attributes_*.json
+    mapping: ontology/mappings/fashionpedia_to_canon.yaml
+    to_split: train         # extra training data; eval stays on campus dress-code

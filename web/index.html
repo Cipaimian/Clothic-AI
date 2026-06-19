@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#3a445b" />
+
+  <title>Clothic AI</title>
+  <meta name="description"
+    content="Clothic AI scans clothing in real time: it detects garments, measures body exposure, checks formality, and explains every compliance decision with handbook citations. Powered by the Clothic AI explainable policy-reasoning engine." />
+  <meta name="keywords"
+    content="dress code scanner, clothing AI, garment detection, campus compliance, explainable AI, Clothic AI, Clothic AI" />
+  <meta name="author" content="Clothic AI - BINUS University" />
+
+  <!-- Open Graph / social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Clothic AI - AI-Powered Campus Dress Code Scanner" />
+  <meta property="og:description"
+    content="Upload a photo or use your webcam to scan clothing in real time. Explainable garment, exposure, and formality analysis with handbook citations." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><defs><linearGradient id='e' x1='2' y1='4' x2='22' y2='20' gradientUnits='userSpaceOnUse'><stop stop-color='%23aed4e6'/><stop offset='1' stop-color='%23e8f4fa'/></linearGradient></defs><rect width='24' height='24' rx='6' fill='%233a445b'/><g fill='none' stroke='url(%23e)' stroke-width='1.6' stroke-linejoin='round'><path d='M3 12C5.1 8.2 8.2 6.2 12 6.2s6.9 2 9 5.8c-2.1 3.8-5.2 5.8-9 5.8S5.1 15.8 3 12Z'/><circle cx='12' cy='12' r='3'/></g><circle cx='12' cy='12' r='1.2' fill='url(%23e)'/></svg>" />
+</head>
+
+<body>
+  <!-- Soft denim-sky / white-cloud background (375.studio vibe) -->
+  <div class="sky-bg" aria-hidden="true">
+    <span class="cloud c1"></span>
+    <span class="cloud c2"></span>
+    <span class="cloud c3"></span>
+    <span class="cloud c4"></span>
+    <span class="cloud c5"></span>
+    <span class="cloud c6"></span>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="brand">
+        <span class="brand-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="clo-eye" x1="2" y1="4" x2="22" y2="20" gradientUnits="userSpaceOnUse"><stop stop-color="#aed4e6"/><stop offset="1" stop-color="#e8f4fa"/></linearGradient></defs><path d="M1.7 12C4.4 7.2 8 4.9 12 4.9s7.6 2.3 10.3 7.1C19.6 16.8 16 19.1 12 19.1S4.4 16.8 1.7 12Z" stroke="url(#clo-eye)" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.05" stroke="url(#clo-eye)" stroke-width="1.5"/><circle cx="12" cy="12" r="1.2" fill="url(#clo-eye)"/></svg></span>
+        <span class="brand-name">Clothic<span class="accent"> AI</span></span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#scanner">Scanner</a>
+        <a href="#how">Pipeline</a>
+        <a href="#features">Features</a>
+      </nav>
+      <div class="nav-status">
+        <span class="status-dot" id="apiDot" data-state="connecting"></span>
+        <span class="status-text" id="apiStatusText">Connecting…</span>
+      </div>
+      <a href="#scanner" class="btn btn-sm btn-primary nav-cta">Start Scanning</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Explainable Visual Attribute Recognition</span>
+          <h1 class="hero-title">
+            AI-Powered <span class="gradient-text">Campus Dress Code</span> Scanner
+          </h1>
+          <p class="hero-sub">
+            Upload a photo or use your webcam to scan clothing in real time. The AI detects
+            garments, measures body exposure, checks formality, and explains its decision
+            with handbook citations, not just a pass/fail label.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#scanner" class="btn btn-primary btn-lg">
+              <span>Start Scanning</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+            <a href="#how" class="btn btn-ghost btn-lg">Learn More</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <div class="stat-num" data-target="4" data-suffix="">0</div>
+              <div class="stat-label">Decision Scores</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num" data-target="200" data-suffix="+">0</div>
+              <div class="stat-label">Attributes</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num" data-target="100" data-prefix="&lt;" data-suffix="ms">0</div>
+              <div class="stat-label">Reasoning Latency</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Animated scanner preview -->
+        <div class="hero-visual">
+          <div class="scan-preview glass">
+            <div class="scan-frame">
+              <span class="corner tl"></span><span class="corner tr"></span>
+              <span class="corner bl"></span><span class="corner br"></span>
+              <div class="scan-line"></div>
+              <div class="scan-figure">
+                <div class="fig-head"></div>
+                <div class="fig-body"></div>
+              </div>
+              <div class="scan-chip chip-upper">shirt_formal · 0.92</div>
+              <div class="scan-chip chip-lower">trousers · 0.87</div>
+              <div class="scan-chip chip-foot">shoes_closed · 0.91</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCANNER ============ -->
+    <section class="scanner section" id="scanner">
+      <div class="section-head">
+        <span class="eyebrow">Live Scanner</span>
+        <h2 class="section-title">Scan an outfit</h2>
+        <p class="section-desc">Choose a policy profile then upload an image or scan live with your webcam.</p>
+      </div>
+
+      <div class="scanner-toolbar glass">
+        <div class="mode-switch" role="tablist" aria-label="Scanner mode">
+          <button class="mode-btn active" id="modeUploadBtn" role="tab" aria-selected="true" data-mode="upload">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+            Upload
+          </button>
+          <button class="mode-btn" id="modeCameraBtn" role="tab" aria-selected="false" data-mode="camera">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            Camera
+          </button>
+        </div>
+
+        <label class="profile-field">
+          <span>Policy profile</span>
+          <select id="profileSelect" class="profile-select" aria-label="Policy profile">
+            <option value="default">Loading…</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="scanner-grid">
+        <!-- LEFT: input -->
+        <div class="scanner-input glass">
+          <!-- Upload mode -->
+          <div class="mode-panel" id="uploadPanel">
+            <div class="dropzone" id="dropzone" tabindex="0" role="button"
+              aria-label="Upload a clothing image. Drag and drop, or click to browse.">
+              <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden />
+              <div class="dropzone-empty" id="dropzoneEmpty">
+                <div class="dz-icon">
+                  <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                    stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+                </div>
+                <p class="dz-title">Drag &amp; drop an image</p>
+                <p class="dz-hint">or <span class="link">browse files</span> · JPG, PNG, WEBP</p>
+              </div>
+              <div class="dropzone-preview" id="dropzonePreview" hidden>
+                <img id="previewImg" alt="Selected clothing preview" />
+                <button class="remove-btn" id="removeBtn" type="button" aria-label="Remove image">✕</button>
+                <div class="scan-overlay" id="uploadScanOverlay" hidden><div class="scan-line"></div></div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-block btn-lg" id="analyzeBtn" disabled>
+              <span class="btn-label">Analyze</span>
+            </button>
+          </div>
+
+          <!-- Camera mode -->
+          <div class="mode-panel" id="cameraPanel" hidden>
+            <div class="camera-stage">
+              <video id="video" autoplay playsinline muted></video>
+              <canvas id="canvas" hidden></canvas>
+              <div class="live-badge" id="liveBadge" hidden><span class="live-dot"></span>LIVE</div>
+              <div class="cam-overlay" id="camOverlay"></div>
+              <div class="camera-placeholder" id="cameraPlaceholder">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                <p>Camera is off</p>
+              </div>
+            </div>
+
+            <div class="camera-controls">
+              <button class="btn btn-ghost" id="cameraToggleBtn">Start Camera</button>
+              <button class="btn btn-primary" id="captureBtn" disabled>Capture &amp; Analyze</button>
+            </div>
+            <label class="realtime-toggle">
+              <span class="rt-text">
+                <strong>Real-time scan</strong>
+                <small>Auto-capture &amp; analyze every ~3s with a live overlay</small>
+              </span>
+              <span class="switch">
+                <input type="checkbox" id="realtimeToggle" disabled />
+                <span class="slider"></span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- RIGHT: results -->
+        <div class="scanner-results glass" id="resultsPanel">
+          <div class="results-empty" id="resultsEmpty">
+            <div class="empty-orb"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3.2"/></svg></div>
+            <p class="empty-title">Results will appear here</p>
+            <p class="empty-hint">Upload or capture an outfit to see garments, exposure, fired rules and an explainable decision.</p>
+          </div>
+
+          <div class="results-loading" id="resultsLoading" hidden>
+            <div class="spinner"></div>
+            <p>Analyzing outfit…</p>
+          </div>
+
+          <div class="results-content" id="resultsContent" hidden>
+            <div class="results-meta" id="resultsMeta"></div>
+            <div class="persons" id="personsContainer"></div>
+            <div class="latency-bar" id="latencyBar"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="how section" id="how">
+      <div class="section-head">
+        <span class="eyebrow">The Pipeline</span>
+        <h2 class="section-title">How the verdict is decided</h2>
+        <p class="section-desc">The neural models detect only observable visual attributes. Transparent, auditable rule engine renders every compliance decision.</p>
+      </div>
+
+      <div class="pipeline glass">
+        <ol class="pipeline-flow">
+          <li class="pl-step"><span class="pl-idx">01</span><span class="pl-name">Image</span><span class="pl-tech">Frame</span></li>
+          <li class="pl-step"><span class="pl-idx">02</span><span class="pl-name">Person Detection</span><span class="pl-tech">YOLO11</span></li>
+          <li class="pl-step"><span class="pl-idx">03</span><span class="pl-name">Garment Classification</span><span class="pl-tech">YOLO11</span></li>
+          <li class="pl-step"><span class="pl-idx">04</span><span class="pl-name">Attribute Recognition</span><span class="pl-tech">FashionSigLIP</span></li>
+          <li class="pl-step"><span class="pl-idx">05</span><span class="pl-name">Exposure Measurement</span><span class="pl-tech">Meta Sapiens</span></li>
+          <li class="pl-step"><span class="pl-idx">06</span><span class="pl-name">Policy Rules</span><span class="pl-tech">Rule engine</span></li>
+          <li class="pl-step"><span class="pl-idx">07</span><span class="pl-name">Four-Score</span><span class="pl-tech">Scoring</span></li>
+          <li class="pl-step"><span class="pl-idx">08</span><span class="pl-name">Explainable Decision</span><span class="pl-tech">Explainer</span></li>
+        </ol>
+      </div>
+
+      <div class="steps">
+        <article class="step glass">
+          <span class="step-num">01</span>
+          <h3>Perceive</h3>
+          <p>Each individual is detected and tracked, their garments classified by slot (upper, lower, footwear), and attributes such as sleeve length and hemline recognised.</p>
+        </article>
+        <article class="step glass">
+          <span class="step-num">02</span>
+          <h3>Measure</h3>
+          <p>Human body parsing computes skin-exposure ratios for each region (shoulder, midriff, thigh, knee) geometrically, never inferred from appearance.</p>
+        </article>
+        <article class="step glass">
+          <span class="step-num">03</span>
+          <h3>Reason</h3>
+          <p>A transparent, JSON-configurable rule engine evaluates the active campus profile and triggers only the rules whose conditions are satisfied.</p>
+        </article>
+        <article class="step glass">
+          <span class="step-num">04</span>
+          <h3>Explain</h3>
+          <p>Every verdict is issued with four calibrated scores with detailed explanation, the relevant handbook citation, and a verified remediation when a violation is detected.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="features section" id="features">
+      <div class="section-head">
+        <span class="eyebrow">Why Clothic AI?</span>
+        <h2 class="section-title">Evidence over impression</h2>
+        <p class="section-desc">Hover each principle to see what makes a verdict defensible, not just a guess.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature glass">
+          <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+          <h3>Real-time webcam scanning</h3>
+          <p>Continuous scan mode captures a frame every few seconds and overlays the live decision on your feed.</p>
+        </article>
+        <article class="feature glass">
+          <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M8 9h2"/></svg></div>
+          <h3>Explainable decisions</h3>
+          <p>Every verdict cites the exact handbook rule that fired - auditable, not a black box.</p>
+        </article>
+        <article class="feature glass">
+          <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div>
+          <h3>Configurable profiles</h3>
+          <p>Swap policy profiles (Standard, Exam Day, Lab Safety) with no model retraining.</p>
+        </article>
+        <article class="feature glass">
+          <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <h3>Four-score methodology</h3>
+          <p>Exposure, formality, compliance and uncertainty - richer than a binary pass/fail.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <a href="#hero" class="footer-brand">
+        <span class="brand-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="clo-eye-f" x1="2" y1="4" x2="22" y2="20" gradientUnits="userSpaceOnUse"><stop stop-color="#aed4e6"/><stop offset="1" stop-color="#e8f4fa"/></linearGradient></defs><path d="M1.7 12C4.4 7.2 8 4.9 12 4.9s7.6 2.3 10.3 7.1C19.6 16.8 16 19.1 12 19.1S4.4 16.8 1.7 12Z" stroke="url(#clo-eye-f)" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.05" stroke="url(#clo-eye-f)" stroke-width="1.5"/><circle cx="12" cy="12" r="1.2" fill="url(#clo-eye-f)"/></svg></span>
+        <span class="brand-name">Clothic<span class="accent"> AI</span></span>
+      </a>
+      <div class="footer-right">
+        <nav class="footer-links" aria-label="Footer">
+          <a href="#scanner">Scanner</a>
+          <a href="#how">Pipeline</a>
+          <a href="#features">Why Clothic AI</a>
+        </nav>
+        <div class="footer-social">
+          <a href="https://github.com/Cipaimian/Clothic-AI" target="_blank" rel="noopener" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg></a>
+          <a href="mailto:brianfilbertchandra@gmail.com" aria-label="Email"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast container -->
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
